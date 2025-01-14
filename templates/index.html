@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .column {
+            flex: 0 0 48%;
+        }
+        .dropdown {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 16px;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>House Price Prediction</h2>
+        <form action="/predict" method="POST">
+            <div class="row">
+                <div class="column">
+                    <select name="dropdown1" class="dropdown">
+                        <option value="">Select Option 1</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+                <div class="column">
+                    <select name="dropdown2" class="dropdown">
+                        <option value="">Select Option 2</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <select name="dropdown3" class="dropdown">
+                        <option value="">Select Option 3</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+                <div class="column">
+                    <select name="dropdown4" class="dropdown">
+                        <option value="">Select Option 4</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <select name="dropdown5" class="dropdown">
+                        <option value="">Select Option 5</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+                <div class="column">
+                    <select name="dropdown6" class="dropdown">
+                        <option value="">Select Option 6</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
