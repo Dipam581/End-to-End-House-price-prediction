@@ -52,60 +52,80 @@
         .submit-button:hover {
             background-color: #0056b3;
         }
+        .column.full-width {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>House Price Prediction</h2>
         <form action="/predict" method="POST">
-            <div class="row">
-                <div class="column">
-                    <select name="dropdown1" class="dropdown">
-                        <option value="">Select Option 1</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                    </select>
+            {% for key, values in totalDict.items() %}
+                <div class="row">
+                    <div class="column full-width">
+                    <label for="css">Price (Rs.)</label>
+                        <select name="dropdown1" class="dropdown">
+                            <option value={{value}}>{{value}}</option>
+                            
+                        </select>
+                    </div>
                 </div>
-                <div class="column">
-                    <select name="dropdown2" class="dropdown">
-                        <option value="">Select Option 2</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                    </select>
+                {% comment %} <div class="row">
+                    <div class="column">
+                        <label for="css">Type</label>
+                        <select name="dropdown1" class="dropdown">
+                            <option value="">Select Option 1</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </select>
+                    </div>
+                    <div class="column">
+                        <label for="css">Location</label>
+                        <select name="dropdown2" class="dropdown">
+                            <option value="">Select Option 2</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <select name="dropdown3" class="dropdown">
-                        <option value="">Select Option 3</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                    </select>
+                <div class="row">
+                    <div class="column">
+                        <label for="css">Direction</label>
+                        <select name="dropdown3" class="dropdown">
+                            <option value="">Select Option 3</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </select>
+                    </div>
+                    <div class="column">
+                        <label for="css">Square Feet of Area</label>
+                        <select name="dropdown4" class="dropdown">
+                            <option value="">Select Option 4</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="column">
-                    <select name="dropdown4" class="dropdown">
-                        <option value="">Select Option 4</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <select name="dropdown5" class="dropdown">
-                        <option value="">Select Option 5</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                    </select>
-                </div>
-                <div class="column">
-                    <select name="dropdown6" class="dropdown">
-                        <option value="">Select Option 6</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                    </select>
-                </div>
-            </div>
+                <div class="row">
+                    <div class="column">
+                        <label for="css">Floor</label>
+                        <select name="dropdown5" class="dropdown">
+                            <option value="">Select Option 5</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </select>
+                    </div>
+                    <div class="column">
+                        <label for="css">Bathroom</label>
+                        <select name="dropdown6" class="dropdown">
+                            <option value="">Select Option 6</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </select>
+                    </div>
+                </div> {% endcomment %}
+            {% endfor %}
             <button type="submit" class="submit-button">Submit</button>
         </form>
     </div>
