@@ -4,6 +4,8 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import joblib
 from babel.numbers import format_decimal
+from sklearn.preprocessing import LabelEncoder
+import joblib
 
 
 app = Flask(__name__)
@@ -78,17 +80,17 @@ for i in column_list:
 for (key,value) in totalDict.items():
     if key == "Price_in_rupees":
         print(max(totalDict[key]))
-        totalDict[key] = [format_decimal(x, locale='en_IN') for x in range(100000,int(max(totalDict[key])), 100000)]
+        totalDict[key] = [float(x) for x in range(100000,int(max(totalDict[key])), 100000)] #format_decimal(x, locale='en_IN')
     if key == "location":
         totalDict[key] = [x.capitalize() for x in totalDict[key]]
 
     if key == "Carpet_Area_in_sqft":
-        totalDict[key] = [(format_decimal(x, locale='en_IN')) for x in range(1000,int(max(totalDict[key])), 1000)]
+        totalDict[key] = [float(x) for x in range(1000,int(max(totalDict[key])), 1000)] #(format_decimal(x, locale='en_IN'))
 
     if key == "Furnishing" or key == "facing":
         totalDict[key] = [x for x in totalDict[key] if "nan" not in str(x)]
     if key == "Bathroom":
-        totalDict[key] = [int(x) for x in totalDict[key] if "nan" not in str(x)]
+        totalDict[key] = [float(x) for x in totalDict[key] if "nan" not in str(x)]
 
 
 @app.route('/')
@@ -98,8 +100,7 @@ def load_UI():
 
 @app.route('/predict', methods=['POST'])
 def getUserInput():
-    print(request.form["Bathroom"])
-    return {
+    form_data = {
         "Price_in_rupees": request.form["Price_in_rupees"],
         "location": request.form["location"], 
         "Carpet_Area_in_sqft": request.form["Carpet_Area_in_sqft"],
@@ -107,7 +108,32 @@ def getUserInput():
         "Furnishing": request.form["Furnishing"],
         "facing": request.form["facing"], 
         "Bathroom": request.form["Bathroom"],
-
     }
+
+    # Convert to DataFrame
+    df_data = pd.DataFrame([form_data])
+    
+    def label_encode_multiple(df, columns):
+        le = LabelEncoder()
+        for column in columns:
+            df[column] = le.fit_transform(df[column])
+        return df
+
+    label_encode_columns = ['Floor', 'Furnishing', 'facing', 'location']
+    df_data = label_encode_multiple(df_data, label_encode_columns)
+    
+
+    df_data["Price_in_rupees"] = pd.to_numeric(df_data["Price_in_rupees"], errors='coerce')
+    df_data["Carpet_Area_in_sqft"] = pd.to_numeric(df_data["Carpet_Area_in_sqft"], errors='coerce')
+    df_data["Bathroom"] = pd.to_numeric(df_data["Bathroom"], errors='coerce')
+    print(df_data.info())
+    #df_data.to_csv("Dataset/cc.csv", index=False)
+    model = joblib.load("housePriceModel.pkl")
+    print(type(model))
+
+    prediction = model.predict(df_data)
+
+    return {"prediction": prediction.tolist()}
+
 
 
