@@ -11,3 +11,4 @@ xgboost
 uvicorn
 jinja2
 flask
+babel

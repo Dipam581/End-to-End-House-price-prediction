@@ -64,70 +64,20 @@
             {% for key, values in totalDict.items() %}
                 <div class="row">
                     <div class="column full-width">
-                    <label for="css">Price (Rs.)</label>
-                        <select name="dropdown1" class="dropdown">
-                            <option value={{value}}>{{value}}</option>
-                            
+                        <label for="{{ key }}">{{ key }}</label>
+                        <select name="{{ key }}" class="dropdown">
+                            <option value="">Select an option</option>
+                            {% for value in values %}
+                                {% if value != 'nan' and value is not none %}
+                                    <option value="{{ value }}">{{ value }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
-                {% comment %} <div class="row">
-                    <div class="column">
-                        <label for="css">Type</label>
-                        <select name="dropdown1" class="dropdown">
-                            <option value="">Select Option 1</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="column">
-                        <label for="css">Location</label>
-                        <select name="dropdown2" class="dropdown">
-                            <option value="">Select Option 2</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <label for="css">Direction</label>
-                        <select name="dropdown3" class="dropdown">
-                            <option value="">Select Option 3</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="column">
-                        <label for="css">Square Feet of Area</label>
-                        <select name="dropdown4" class="dropdown">
-                            <option value="">Select Option 4</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <label for="css">Floor</label>
-                        <select name="dropdown5" class="dropdown">
-                            <option value="">Select Option 5</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="column">
-                        <label for="css">Bathroom</label>
-                        <select name="dropdown6" class="dropdown">
-                            <option value="">Select Option 6</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                </div> {% endcomment %}
             {% endfor %}
             <button type="submit" class="submit-button">Submit</button>
-        </form>
+        </form>        
     </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import joblib
+from babel.numbers import format_decimal
 
 
 app = Flask(__name__)
@@ -10,8 +11,6 @@ app = Flask(__name__)
 
 df = pd.read_csv("Dataset/house_prices.csv")
 
-column_list = ["Price_in_rupees", "location", "Carpet_Area_in_sqft", "Floor", "Furnishing", "facing", "Bathroom"]
-totalDict = {}
 
 def calculate_carpetArea():
     total = 0
@@ -64,20 +63,36 @@ def pre_processedData(df):
     df.drop("Index",axis='columns',inplace=True)
 
 
-pre_processedData(df)
+# pre_processedData(df["Price (in rupees)"])
 
 dataset = pd.read_csv("Dataset/processed_house_prices.csv")
 
+column_list = ["Price_in_rupees", "location", "Carpet_Area_in_sqft", "Floor", "Furnishing", "facing", "Bathroom"]
+totalDict = {}
+
 for i in column_list:
     col_value = dataset[i].values
-    col_value = [str(col).capitalize() if isinstance(col, str) and str(col).lower() != "nan" else col for col in col_value]
-    totalDict[i] = set(col_value)
+    col_value = [col if col == "nan" else col for col in col_value]
+    totalDict[i] = list(set(col_value))
 
-print(totalDict["Price_in_rupees"])
+for (key,value) in totalDict.items():
+    if key == "Price_in_rupees":
+        print(max(totalDict[key]))
+        totalDict[key] = [format_decimal(x, locale='en_IN') for x in range(100000,int(max(totalDict[key])), 100000)]
+    if key == "location":
+        totalDict[key] = [x.capitalize() for x in totalDict[key]]
+
+    if key == "Carpet_Area_in_sqft":
+        totalDict[key] = [(format_decimal(x, locale='en_IN')) for x in range(1000,int(max(totalDict[key])), 1000)]
+
+    if key == "Furnishing" or key == "facing":
+        totalDict[key] = [x for x in totalDict[key] if "nan" not in str(x)]
+    if key == "Bathroom":
+        totalDict[key] = [int(x) for x in totalDict[key] if "nan" not in str(x)]
 
 
 @app.route('/')
-def hello(totalDict= None):
+def hello():
     return render_template('index.html', totalDict=totalDict)
 
 
