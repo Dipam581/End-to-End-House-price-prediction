@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
@@ -92,9 +92,22 @@ for (key,value) in totalDict.items():
 
 
 @app.route('/')
-def hello():
+def load_UI():
     return render_template('index.html', totalDict=totalDict)
 
 
+@app.route('/predict', methods=['POST'])
+def getUserInput():
+    print(request.form["Bathroom"])
+    return {
+        "Price_in_rupees": request.form["Price_in_rupees"],
+        "location": request.form["location"], 
+        "Carpet_Area_in_sqft": request.form["Carpet_Area_in_sqft"],
+        "Floor": request.form["Floor"], 
+        "Furnishing": request.form["Furnishing"],
+        "facing": request.form["facing"], 
+        "Bathroom": request.form["Bathroom"],
+
+    }
 
 
