@@ -59,25 +59,30 @@
 </head>
 <body>
     <div class="container">
-        <h2>House Price Prediction</h2>
-        <form action="/predict" method="POST">
-            {% for key, values in totalDict.items() %}
-                <div class="row">
-                    <div class="column full-width">
-                        <label for="{{ key }}">{{ key }}</label>
-                        <select name="{{ key }}" class="dropdown">
-                            <option value="">Select an option</option>
-                            {% for value in values %}
-                                {% if value != 'nan' and value is not none %}
-                                    <option value="{{ value }}">{{ value }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
+        {% if formatted_prediction %}
+            <h3>Predicted amount is: {{ formatted_prediction }}</h3>
+        {% else %}
+            <h2>House Price Prediction</h2>
+            <form action="/predict" method="POST">
+                {% for key, values in totalDict.items() %}
+                    <div class="row">
+                        <div class="column full-width">
+                            <label for="{{ key }}">{{ key }}</label>
+                            <select name="{{ key }}" class="dropdown">
+                                <option value="">Select an option</option>
+                                {% for value in values %}
+                                    {% if value != 'nan' and value is not none %}
+                                        <option value="{{ value }}">{{ value }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-            <button type="submit" class="submit-button">Submit</button>
-        </form>        
+                {% endfor %}
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        {% endif %}
     </div>
+    
 </body>
 </html>

@@ -12,3 +12,5 @@ uvicorn
 jinja2
 flask
 babel
+mlflow
+dagshub
