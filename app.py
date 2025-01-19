@@ -73,10 +73,13 @@ def pre_processedData(df):
     df['Amount(in rupees)']= df['Amount(in rupees)'].apply(convert_rupees)
     df.rename(columns={'Amount(in rupees)': 'Amount_in_rupees', 'Price (in rupees)': 'Price_in_rupees', 'Carpet Area': 'Carpet_Area_in_sqft'}, inplace=True)
     df["Bathroom"] = pd.to_numeric(df["Bathroom"], errors='coerce')
-    label_encode_columns = ['Floor', 'Furnishing', 'facing', 'location']
-    df = label_encode_multiple(df, label_encode_columns)
     df["Amount_in_rupees"] = df["Amount_in_rupees"].transform(lambda x: x.fillna(x.mean()))
     df["Bathroom"] = df["Bathroom"].transform(lambda x: x.fillna(x.mean()))
+
+    df.to_csv("Dataset/processed_house_prices.csv", index=False)
+    
+    label_encode_columns = ['Floor', 'Furnishing', 'facing', 'location']
+    df = label_encode_multiple(df, label_encode_columns)
     df.drop("Index",axis='columns',inplace=True)
     return df
 
